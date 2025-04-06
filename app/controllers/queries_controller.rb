@@ -3,10 +3,11 @@
 class QueriesController < ApplicationController
   def index
     analytics = Query.joins(:user)
-                     .group(:query)
-                     .select('queries.query, COUNT(DISTINCT users.id) AS user_count')
-                     .map { |record| [record.query, record.user_count] }
-                     .to_h
+                 .group(:query)
+                 .select('queries.query, COUNT(DISTINCT users.id) AS user_count')
+                 .order('user_count DESC')
+                 .map { |record| [record.query, record.user_count] }
+                 .to_h
     respond_to do |format|
       format.html
       format.json do

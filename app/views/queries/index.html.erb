@@ -60,7 +60,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    const analytics = Object.keys(data.data).map((q) => `<p>${q} searched by ${data.data[q]} users</p>`);
+                    const analytics = Object.keys(data.data).map((q) => `<p>${q}, searched by: ${data.data[q]} user(s)</p>`);
                     document.getElementById('results').innerHTML = analytics.join('');
                 }
             });
