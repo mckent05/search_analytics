@@ -86,4 +86,4 @@ production:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: postgres_txva
   username: postgres_txva_user
-  password: <%= ENV["SEARCH_ANALYTICS_DATABASE_PASSWORD"] %>
+  password: WJF8p3giyDp1sHd1TMDNswxZuhlRCdCl
