@@ -1,0 +1,70 @@
+<div class="container">
+    <h1>Search Articles</h1>
+    <input type="text" id="search" class="search-input" placeholder="Search for an article..." />
+    <h1> Most Searched Articles </h1>
+    <div id="results" class="results"></div>
+</div>
+
+<script>
+    let typingTimer;
+    const DONE_TYPING_INTERVAL = 1000; 
+
+    document.getElementById('search').addEventListener('input', function() {
+        const term = this.value;
+
+        // Clear the previous timeout if the user is still typing
+        clearTimeout(typingTimer);
+
+        if (term.length > 0) {
+            // Set the timeout to only call the fetch after a delay of 1 second (DONE_TYPING_INTERVAL)
+            typingTimer = setTimeout(() => {
+                // Make the POST request only after the user has stopped typing
+                fetch('/queries', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ query: term })
+                });
+            }, DONE_TYPING_INTERVAL);
+        }
+        fetchAnalytics();
+    });
+
+    // Add event listener for the Enter key
+    document.getElementById('search').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const term = this.value;
+
+            if (term.length > 0) {
+                // Make the POST request immediately on Enter
+                fetch('/queries', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ query: term })
+                });
+                this.value = ""
+
+                // Fetch analytics data immediately
+                fetchAnalytics();
+            }
+        }
+    });
+
+    function fetchAnalytics() {
+        fetch('/queries.json')
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    const analytics = Object.keys(data.data).map((q) => `<p>${q} searched by ${data.data[q]} users</p>`);
+                    document.getElementById('results').innerHTML = analytics.join('');
+                }
+            });
+    }
+</script>
+
+

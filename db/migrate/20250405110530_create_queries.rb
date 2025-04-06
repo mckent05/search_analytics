@@ -1,6 +1,8 @@
-class CreateQueriesTable < ActiveRecord::Migration[7.1]
+# frozen_string_literal: true
+
+class CreateQueries < ActiveRecord::Migration[7.1]
   def change
-    create_table :queries_tables do |t|
+    create_table :queries do |t|
       t.references :user, null: false, foreign_key: true
       t.string :query
 
