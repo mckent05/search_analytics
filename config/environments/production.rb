@@ -8,7 +8,7 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
-  config.secret_key_base = "baf496a1cf20c236660de4365144d4e1057fb93174a4cc05ef2e4cd7cfcda9523fb4bcfc59829eff14d333520208351b5e1a072d14287228f67662cfb5a04a90"
+  config.secret_key_base = "7784075f35a5ec9e591b8ec8aad7ee0f4eb3ffa728f0b405df53ce16581b9547839cf573286d6d4f381914882c85e4fb5491b683d68efa0eb3997d153e02ad85"
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
