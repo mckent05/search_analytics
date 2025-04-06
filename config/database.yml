@@ -82,6 +82,9 @@ test:
 #
 production:
   <<: *default
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   database: search_analytics_production
   username: search_analytics
-  password: <%= ENV["SEARCH_ANALYTICS_DATABASE_PASSWORD"] %>
+  password: <%= ENV["SEARCH_ANALYTICS_DATABSE_PASSWORD"] %>
