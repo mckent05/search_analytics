@@ -50,12 +50,6 @@ class QueriesController < ApplicationController
 
   def update_or_create_query(user_query, query)
     user_query.update(query:)
-    # if user_query.updated_at < 30.seconds.ago
-
-    #   render json: { status: 'success', message: 'Query updated successfully' }
-    # else
-    #   render json: { status: 'error', message: 'Query exists and is up to date' }, status: :unprocessable_entity
-    # end
   end
 
   def create_new_query(user, query)
