@@ -6,7 +6,7 @@ class QueriesController < ApplicationController
                  .group(:query)
                  .select('queries.query, COUNT(DISTINCT users.id) AS user_count')
                  .order('user_count DESC')
-                 .map { |record| [record.query, record.user_count] }
+                 .map { |record| [record.query.titleize, record.user_count] }
                  .to_h
     respond_to do |format|
       format.html

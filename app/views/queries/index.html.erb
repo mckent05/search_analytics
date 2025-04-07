@@ -7,7 +7,7 @@
 
 <script>
     let typingTimer;
-    const DONE_TYPING_INTERVAL = 1000; 
+    const DONE_TYPING_INTERVAL = 3000; 
 
     document.getElementById('search').addEventListener('input', function() {
         const term = this.value;
@@ -16,7 +16,7 @@
         clearTimeout(typingTimer);
 
         if (term.length > 0) {
-            // Set the timeout to only call the fetch after a delay of 1 second (DONE_TYPING_INTERVAL)
+            // Set the timeout to only call the fetch after a delay of 3 seconds (DONE_TYPING_INTERVAL)
             typingTimer = setTimeout(() => {
                 // Make the POST request only after the user has stopped typing
                 fetch('/queries', {
@@ -27,9 +27,9 @@
                     },
                     body: JSON.stringify({ query: term })
                 });
+                fetchAnalytics();
             }, DONE_TYPING_INTERVAL);
         }
-        fetchAnalytics();
     });
 
     // Add event listener for the Enter key
