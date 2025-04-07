@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -61,7 +63,7 @@ RSpec.configure do |config|
   RSpec.configure do |config|
     config.include FactoryBot::Syntax::Methods
   end
-  
+
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!

@@ -3,11 +3,11 @@
 class QueriesController < ApplicationController
   def index
     analytics = Query.joins(:user)
-                 .group(:query)
-                 .select('queries.query, COUNT(DISTINCT users.id) AS user_count')
-                 .order('user_count DESC')
-                 .map { |record| [record.query.titleize, record.user_count] }
-                 .to_h
+                     .group(:query)
+                     .select('queries.query, COUNT(DISTINCT users.id) AS user_count')
+                     .order('user_count DESC')
+                     .map { |record| [record.query.titleize, record.user_count] }
+                     .to_h
     respond_to do |format|
       format.html
       format.json do
@@ -28,9 +28,7 @@ class QueriesController < ApplicationController
 
     user = user(ip_address)
     parts = (1..query.length).map { |i| query[0, i] }
-    user_query = user.queries.where(parts.map { |_part| 'query LIKE ?' }.join(' OR '), *parts.map do |part|
-                                                                                         "%#{part}%"
-                                                                                       end).last
+    user_query = user.queries.existing_query(parts).last
 
     if user_query && query_exists?(user_query, query)
       update_or_create_query(user_query, query)

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
-    ip_address { "192.168.1.1" } # You can modify this as needed
+    ip_address { '192.168.1.1' } # You can modify this as needed
 
     trait :with_queries do
       after(:create) do |user|
-        create_list(:query, 3, user: user)
+        create_list(:query, 3, user:)
       end
     end
   end

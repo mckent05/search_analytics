@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe QueriesController, type: :controller do
@@ -5,13 +7,13 @@ RSpec.describe QueriesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns analytics data in JSON format' do
-      create(:query, query: 'test', user: user)
+      create(:query, query: 'test', user:)
 
       get :index, format: :json
 
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)
-      expect(json_response['data']).to eq({'test' => 1})
+      expect(json_response['data']).to eq({ 'test' => 1 })
     end
 
     it 'renders the index template for HTML requests' do
@@ -24,9 +26,9 @@ RSpec.describe QueriesController, type: :controller do
   describe 'POST #create' do
     context 'with valid parameters' do
       it 'creates a new query for the user' do
-        expect {
+        expect do
           post :create, params: { query: 'new query' }, format: :json
-        }.to change(Query, :count).by(1)
+        end.to change(Query, :count).by(1)
 
         expect(response).to have_http_status(:success)
         json_response = JSON.parse(response.body)
